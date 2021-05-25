@@ -96,7 +96,7 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 {
 	
 	//Reordenar dataReg2 para que la entrada sea una secuencia bitónica
-	*dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
+	//dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
 	
 	uint32_t m1=_mm_extract_epi32(dataReg1,0);
     uint32_t m2=_mm_extract_epi32(dataReg1,1);
