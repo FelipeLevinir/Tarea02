@@ -165,7 +165,11 @@ void print_m2(__m128i* Registros){
 void BNM(__m128i*  dataReg){
 	//Debe llamar a bitonicSorter() según el esquema
 	//mostrado en clases
-	
+	bitonicSorter(*dataReg[0],*dataReg[1]);
+	bitonicSorter(*dataReg[2],*dataReg[3]);
+	bitonicSorter(*dataReg[1],*dataReg[2]);
+	bitonicSorter(*dataReg[0],*dataReg[1]);
+	bitonicSorter(*dataReg[2],*dataReg[3]);	
 }
 
 void uso(std::string pname)
@@ -231,7 +235,6 @@ int main(int argc, char** argv)
 	//Ordenar los 4 datos de cada registro a través del Sorting Network
 	sortNet(dataReg);
 	transpose(dataReg);
-	print_m2(dataReg);
 	
 	//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
 	bitonicSorter(&dataReg[0], &dataReg[1]);
@@ -239,6 +242,7 @@ int main(int argc, char** argv)
 	print_m2(dataReg);
 	//Ordenar 16 datos a través de la Bitonic Merge Network
 	BNM(dataReg);
+	print_m2(dataReg);
 
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
