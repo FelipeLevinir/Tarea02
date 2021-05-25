@@ -212,7 +212,7 @@ int main(int argc, char** argv)
 	uint32_t N = 16;
 	for(size_t i=0; i < N; i++){	
 		std::cout << std::setw(8);	
-		std::cout <<"dato "i << " "m1[i] << std::endl;	
+		std::cout <<"dato "i << " " << m1[i] << std::endl;	
 	}
 	
 	
