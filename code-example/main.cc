@@ -165,11 +165,11 @@ void print_m2(__m128i* Registros){
 void BNM(__m128i*  dataReg){
 	//Debe llamar a bitonicSorter() según el esquema
 	//mostrado en clases
-	bitonicSorter(*dataReg[0],*dataReg[1]);
-	bitonicSorter(*dataReg[2],*dataReg[3]);
-	bitonicSorter(*dataReg[1],*dataReg[2]);
-	bitonicSorter(*dataReg[0],*dataReg[1]);
-	bitonicSorter(*dataReg[2],*dataReg[3]);	
+	bitonicSorter(&*dataReg[0],&*dataReg[1]);
+	bitonicSorter(&*dataReg[2],&*dataReg[3]);
+	bitonicSorter(&*dataReg[1],&*dataReg[2]);
+	bitonicSorter(&*dataReg[0],&*dataReg[1]);
+	bitonicSorter(&*dataReg[2],&*dataReg[3]);	
 }
 
 void uso(std::string pname)
