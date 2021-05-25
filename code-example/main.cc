@@ -100,7 +100,7 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 	*dataReg1=aux;
 	//Reordenar dataReg2 para que la entrada sea una secuencia bitónica
 	//dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
-	
+	std::cout << "pasa 1" << std::endl;
 	uint32_t m1=_mm_extract_epi32(*dataReg1,0);
     uint32_t m2=_mm_extract_epi32(*dataReg1,1);
     uint32_t m3=_mm_extract_epi32(*dataReg1,2);
@@ -125,12 +125,13 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
     M2=_mm_extract_epi32(*dataReg2,1);
     M3=_mm_extract_epi32(*dataReg2,2);
     M4=_mm_extract_epi32(*dataReg2,3);
-
+	std::cout << "pasa 2" << std::endl;
     *dataReg1=_mm_setr_epi32(m1,M1,m2,M2);
     *dataReg2=_mm_setr_epi32(m3,M3,m4,M4);
     aux=_mm_min_epi32(*dataReg1,*dataReg2);
     *dataReg2=_mm_max_epi32(*dataReg1,*dataReg2);
     *dataReg1=aux;
+	std::cout << "pasa 3" << std::endl;
 	//Código asociados a cada nivel del Bitonic Sorter
 }
 void print_m2(__m128i* Registros){
