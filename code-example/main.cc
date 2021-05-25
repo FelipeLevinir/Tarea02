@@ -234,7 +234,7 @@ int main(int argc, char** argv)
 
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
-	uint32_t dest[16];
+	uint32_t* dest[16];
 	dest[0]  = _mm_extract_epi32(dataReg[0], 0);
 	dest[1]  = _mm_extract_epi32(dataReg[0], 1);
 	dest[2]  = _mm_extract_epi32(dataReg[0], 2);
