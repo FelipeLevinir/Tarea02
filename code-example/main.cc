@@ -254,14 +254,14 @@ int main(int argc, char** argv)
 	dest[13] = _mm_extract_epi32(dataReg[3], 1);
 	dest[14] = _mm_extract_epi32(dataReg[3], 2);
 	dest[15] = _mm_extract_epi32(dataReg[3], 3);
-	*/
+	
 	
 	
 	std::cout << "-----------Datos Procesados-------" << std::endl;
 	for(size_t i = 0; i < 16; i++){
 		std::cout << std::setw(8);
 		std::cout << dest[i] << std::endl;
-	}
+	}*/
 	__m128i var[4];
 	int i =0;
 	var[0]=_mm_setr_epi32(m1._matrixInMemory[i],m1._matrixInMemory[i+1],m1._matrixInMemory[i+2],m1._matrixInMemory[i+3]);
