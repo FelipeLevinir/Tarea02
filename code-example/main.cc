@@ -231,6 +231,7 @@ int main(int argc, char** argv)
 	//Ordenar los 4 datos de cada registro a través del Sorting Network
 	sortNet(dataReg);
 	transpose(dataReg);
+	print_m2(dataReg);
 	
 	//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
 	bitonicSorter(&dataReg[0], &dataReg[1]);
