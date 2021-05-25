@@ -234,7 +234,7 @@ int main(int argc, char** argv)
 
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
-	uint32_t* dest[16];
+	/*uint32_t* dest[16];
 	dest[0]  = _mm_extract_epi32(dataReg[0], 0);
 	dest[1]  = _mm_extract_epi32(dataReg[0], 1);
 	dest[2]  = _mm_extract_epi32(dataReg[0], 2);
@@ -261,9 +261,9 @@ int main(int argc, char** argv)
 	for(size_t i = 0; i < 16; i++){
 		std::cout << std::setw(8);
 		std::cout << dest[i] << std::endl;
-	}
+	}*/
 
-	//print_m2(dataReg);
+	print_m2(dataReg);
 	
 	/*
 	std::cout << "-----------Shuffle example--------" << std::endl;
