@@ -1,5 +1,5 @@
 #include <global.hh>
-
+#include <algorithm>
 #include <RandomUnifStream.hpp>
 #include <Timing.hpp>
 #include <MatrixToMem.hpp>
@@ -228,10 +228,10 @@ int main(int argc, char** argv)
 	
 	
 	__m128i  dataReg[4];
-	dataReg[0] = _mm_setr_epi32(m1[0] , m1[1] , m1[2] , m1[3] );
-	dataReg[1] = _mm_setr_epi32(m1[4] , m1[5] , m1[6] , m1[7] );
-	dataReg[2] = _mm_setr_epi32(m1[8] , m1[9] , m1[10], m1[11]);
-	dataReg[3] = _mm_setr_epi32(m1[12], m1[13], m1[14], m1[15]);
+	dataReg[0] = _mm_setr_epi32(m2[0] , m2[1] , m2[2] , m2[3] );
+	dataReg[1] = _mm_setr_epi32(m2[4] , m2[5] , m2[6] , m2[7] );
+	dataReg[2] = _mm_setr_epi32(m2[8] , m2[9] , m2[10], m2[11]);
+	dataReg[3] = _mm_setr_epi32(m2[12], m2[13], m2[14], m2[15]);
 	
 	//Ordenar los 4 datos de cada registro a través del Sorting Network
 	sortNet(dataReg);
