@@ -193,12 +193,12 @@ int main(int argc, char** argv)
 	std::cout << "Time to transfer to main memory: " << timer0.elapsed() << std::endl;
 	
 	
-	timer1.start();
+	/*timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
 	
 	std::cout << "Time to sort in main memory: " << timer1.elapsed() << std::endl;
-	
+	*/
 	
 	
 	
@@ -260,6 +260,7 @@ int main(int argc, char** argv)
 		std::cout << dest[i] << std::endl;
 	}
 	
+	print_m2(dest);
 	
 	/*
 	std::cout << "-----------Shuffle example--------" << std::endl;
