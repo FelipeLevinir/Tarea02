@@ -241,7 +241,7 @@ int main(int argc, char** argv)
 	bitonicSorter(&dataReg[2], &dataReg[3]);
 	print_m2(dataReg);
 	//Ordenar 16 datos a través de la Bitonic Merge Network
-	BNM(dataReg);
+	BNM(&dataReg);
 	print_m2(dataReg);
 
 	
