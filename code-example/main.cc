@@ -263,7 +263,7 @@ int main(int argc, char** argv)
 		std::cout << dest[i] << std::endl;
 	}
 
-	print_m2(dataReg);
+	//print_m2(dataReg);
 	
 	/*
 	std::cout << "-----------Shuffle example--------" << std::endl;
