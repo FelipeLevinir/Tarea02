@@ -94,7 +94,10 @@ void transpose(__m128i*  dataReg){
 //
 void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 {
-	
+	*dataReg2=_mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
+	auto aux=_mm_min_epi32(*dataReg1,*dataReg2);
+	*dataReg2=_mm_max_epi32(*dataReg1,*dataReg2);
+	*dataReg1=aux;
 	//Reordenar dataReg2 para que la entrada sea una secuencia bitónica
 	//dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
 	
