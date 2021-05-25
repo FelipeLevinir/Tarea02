@@ -207,22 +207,23 @@ int main(int argc, char** argv)
 	std::cout << "Time to transfer to main memory: " << timer0.elapsed() << std::endl;
 	
 	
-	/*timer1.start();
+	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
 	
 	std::cout << "Time to sort in main memory: " << timer1.elapsed() << std::endl;
-	*/
+	
 	
 	
 	
 	////////////////////////////////////////////////////////////////
 	// Mostrar los N primeros elementos de la matriz desordenada.
+	MatrixToMem m2(fileName);
 	std::cout << "-----------Datos a ordenar---------" << std::endl;
 	uint32_t N = 16;
 	for(size_t i=0; i < N; i++){	
 		std::cout << std::setw(8);	
-		std::cout <<"dato " << i << " " << m1[i] << std::endl;	
+		std::cout <<"dato " << i << " " << m2[i] << std::endl;	
 	}
 	
 	
@@ -240,7 +241,6 @@ int main(int argc, char** argv)
 	bitonicSorter(&dataReg[2], &dataReg[3]);
 	//Ordenar 16 datos a través de la Bitonic Merge Network
 	BNM(dataReg);
-	print_m2(dataReg);
 	transpose(dataReg);
 	print_m2(dataReg);
 
