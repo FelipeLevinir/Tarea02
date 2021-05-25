@@ -33,7 +33,7 @@
 //    en las columnas del arreglo 'dataRegisters'.
 //
 void sortNet(__m128i* dataRegisters) {
-	__m128i dataRegisters[4];
+
 	__m128i r_min1, r_max1, r_min2, r_max2, r_min3, r_max3, r_min4, r_max4, r_min5, r_max5;
 	//Paso 1
 	r_min1 = _mm_min_epi32(dataRegisters[0], dataRegisters[2]);
@@ -42,19 +42,14 @@ void sortNet(__m128i* dataRegisters) {
 	r_min2 = _mm_min_epi32(dataRegisters[1], dataRegisters[3]);
 	r_max2 = _mm_max_epi32(dataRegisters[1], dataRegisters[3]);
 	//Paso 3
-	r_min3 = _mm_min_epi32(dataRegisters[2], dataRegisters[3]);
-	r_max3 = _mm_max_epi32(dataRegisters[2], dataRegisters[3]);
+	r_min3 = _mm_min_epi32(r_max1, r_max2);
+	r_max3 = _mm_max_epi32(r_max1, r_max2);
 	//Paso 4
-	r_min4 = _mm_min_epi32(dataRegisters[0], dataRegisters[1]);
-	r_max4 = _mm_max_epi32(dataRegisters[0], dataRegisters[1]);
+	r_min4 = _mm_min_epi32(r_min1, r_min2);
+	r_max4 = _mm_max_epi32(r_min1, r_min2);
 	//Paso 5
-	r_min4 = _mm_min_epi32(dataRegisters[1], dataRegisters[2]);
-	r_max4 = _mm_max_epi32(dataRegisters[1], dataRegisters[2]);
-	//Salida:
-	//dataRegisters[0] =;
-	//dataRegisters[1] = ;
-	//dataRegisters[2] = ;
-	//dataRegisters[3] =;
+	r_min5 = _mm_min_epi32(r_min3, r_max4);
+	r_max5 = _mm_max_epi32(r_min3, r_max4);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -103,13 +98,45 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 	//Reordenar dataReg2 para que la entrada sea una secuencia bitónica
 	*dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
 	
-	
+	uint32_t m1=_mm_extract_epi32(dataReg1,0);
+    uint32_t m2=_mm_extract_epi32(dataReg1,1);
+    uint32_t m3=_mm_extract_epi32(dataReg1,2);
+    uint32_t m4=_mm_extract_epi32(dataReg1,3);
+/////////////////////////////////////////////////////////////////////////
+    uint32_t M1=_mm_extract_epi32(dataReg2,0);
+    uint32_t M2=_mm_extract_epi32(dataReg2,1);
+    uint32_t M3=_mm_extract_epi32(dataReg2,2);
+    uint32_t M4=_mm_extract_epi32(dataReg2,3);
+    *dataReg1=_mm_setr_epi32(m1,M1,m2,M2);
+    dataReg2=_mm_setr_epi32(m3,M3,m4,M4);
+    aux=_mm_min_epi32(dataReg1,*dataReg2);
+    dataReg2=_mm_max_epi32(dataReg1,*dataReg2);
+    dataReg1=aux;
+////////////////////////////////////////////////////////////////////////
+    m1=_mm_extract_epi32(dataReg1,0);
+    m2=_mm_extract_epi32(dataReg1,1);
+    m3=_mm_extract_epi32(dataReg1,2);
+    m4=_mm_extract_epi32(dataReg1,3);
+
+    M1=_mm_extract_epi32(dataReg2,0);
+    M2=_mm_extract_epi32(dataReg2,1);
+    M3=_mm_extract_epi32(dataReg2,2);
+    M4=_mm_extract_epi32(*dataReg2,3);
+
+    *dataReg1=_mm_setr_epi32(m1,M1,m2,M2);
+    dataReg2=_mm_setr_epi32(m3,M3,m4,M4);
+    aux=_mm_min_epi32(dataReg1,*dataReg2);
+    dataReg2=_mm_max_epi32(dataReg1,*dataReg2);
+    *dataReg1=aux;
 	//Código asociados a cada nivel del Bitonic Sorter
-	
-	
-	//Nivel de salida
-	//*dataReg1 = ;
-	//*dataReg2 = ;
+}
+void print_m2(__m128i* Registros){
+	std::cout << "-----------------Inicio de la m2---------------------" << std::endl;
+	std::cout << "[" << _mm_extract_epi32(Registros[0],0) << "," << _mm_extract_epi32(Registros[0],1) << "," << _mm_extract_epi32(Registros[0],2) << "," << _mm_extract_epi32(Registros[0],3) << "]" << std::endl;
+	std::cout << "[" << _mm_extract_epi32(Registros[1],0) << "," << _mm_extract_epi32(Registros[1],1) << "," << _mm_extract_epi32(Registros[1],2) << "," << _mm_extract_epi32(Registros[1],3) << "]" << std::endl;
+	std::cout << "[" << _mm_extract_epi32(Registros[2],0) << "," << _mm_extract_epi32(Registros[2],1) << "," << _mm_extract_epi32(Registros[2],2) << "," << _mm_extract_epi32(Registros[2],3) << "]" << std::endl;
+	std::cout << "[" << _mm_extract_epi32(Registros[3],0) << "," << _mm_extract_epi32(Registros[3],1) << "," << _mm_extract_epi32(Registros[3],2) << "," << _mm_extract_epi32(Registros[3],3) << "]" << std::endl;
+	std::cout << "-----------------Termino de la m2---------------------" << std::endl;
 }
 
 //////////////////////////////////////////////////////////////////////
