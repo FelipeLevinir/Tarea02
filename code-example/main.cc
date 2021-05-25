@@ -110,7 +110,8 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
     uint32_t M2=_mm_extract_epi32(*dataReg2,1);
     uint32_t M3=_mm_extract_epi32(*dataReg2,2);
     uint32_t M4=_mm_extract_epi32(*dataReg2,3);
-    *dataReg1=_mm_setr_epi32(m1,M1,m2,M2);
+////////////////////////////////////////////////////////////////////////    
+	*dataReg1=_mm_setr_epi32(m1,M1,m2,M2);
     *dataReg2=_mm_setr_epi32(m3,M3,m4,M4);
     aux=_mm_min_epi32(*dataReg1,*dataReg2);
     *dataReg2=_mm_max_epi32(*dataReg1,*dataReg2);
@@ -224,6 +225,7 @@ int main(int argc, char** argv)
 	
 	//Ordenar los 4 datos de cada registro a través del Sorting Network
 	sortNet(dataReg);
+	print_m2(dataReg);
 	transpose(dataReg);
 	
 	//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
@@ -264,7 +266,7 @@ int main(int argc, char** argv)
 		std::cout << dest[i] << std::endl;
 	}*/
 
-	print_m2(dataReg);
+
 	
 	/*
 	std::cout << "-----------Shuffle example--------" << std::endl;
