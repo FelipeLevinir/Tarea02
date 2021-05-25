@@ -50,6 +50,11 @@ void sortNet(__m128i* dataRegisters) {
 	//Paso 5
 	r_min5 = _mm_min_epi32(r_min3, r_max4);
 	r_max5 = _mm_max_epi32(r_min3, r_max4);
+
+	dataRegisters[0] = r_min4;
+	dataRegisters[1] = r_min5;
+	dataRegisters[2] = r_max5;
+	dataRegisters[3] = r_max3;
 }
 
 //////////////////////////////////////////////////////////////////////
