@@ -210,16 +210,15 @@ int main(int argc, char** argv)
 	////////////////////////////////////////////////////////////////
 	// Mostrar los N primeros elementos de la matriz desordenada.
 	MatrixToMem m2(fileName);
-	std::cout << "-----------Datos a ordenar---------" << std::endl;
+	/*std::cout << "-----------Datos a ordenar---------" << std::endl;
 	uint32_t N = 16;
 	for(size_t i=0; i < N; i++){	
 		std::cout << std::setw(8);	
 		std::cout <<"dato " << i << " " << m2[i] << std::endl;	
-	}
+	}*/
 	
-	
-	__m128i  dataReg[4];
 	timer2.start();
+	__m128i  dataReg[4];
 	for(size_t i=0; i<m2._nfil; i+=16){
 		dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
 		dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
