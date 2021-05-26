@@ -140,15 +140,6 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 	//std::cout << "pasa 3" << std::endl;
 	//Código asociados a cada nivel del Bitonic Sorter
 }
-void print_m2(__m128i* Registros){
-	std::cout << "-----------------Inicio de la m2---------------------" << std::endl;
-	std::cout << "[" << _mm_extract_epi32(Registros[0],0) << "," << _mm_extract_epi32(Registros[0],1) << "," << _mm_extract_epi32(Registros[0],2) << "," << _mm_extract_epi32(Registros[0],3) << "]" << std::endl;
-	std::cout << "[" << _mm_extract_epi32(Registros[1],0) << "," << _mm_extract_epi32(Registros[1],1) << "," << _mm_extract_epi32(Registros[1],2) << "," << _mm_extract_epi32(Registros[1],3) << "]" << std::endl;
-	std::cout << "[" << _mm_extract_epi32(Registros[2],0) << "," << _mm_extract_epi32(Registros[2],1) << "," << _mm_extract_epi32(Registros[2],2) << "," << _mm_extract_epi32(Registros[2],3) << "]" << std::endl;
-	std::cout << "[" << _mm_extract_epi32(Registros[3],0) << "," << _mm_extract_epi32(Registros[3],1) << "," << _mm_extract_epi32(Registros[3],2) << "," << _mm_extract_epi32(Registros[3],3) << "]" << std::endl;
-	std::cout << "-----------------Termino de la m2---------------------" << std::endl;
-}
-
 //////////////////////////////////////////////////////////////////////
 //  Bitonic Merge Network
 //      **********************************************************
