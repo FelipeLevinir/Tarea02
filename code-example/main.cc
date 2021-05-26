@@ -196,14 +196,14 @@ int main(int argc, char** argv)
 	timer0.stop();
 	var0=var0+timer0.elapsed();
 	std::cout << "********************************************"<< std::endl;
-	std::cout << "Time to transfer to main memory: " << timer0.elapsed();<< std::endl;
+	std::cout << "Time to transfer to main memory: " << timer0.elapsed() << std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
 	
 	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
 	var1=var1+timer1.elapsed();
-	std::cout << "Time to sort in main memory: " << timer1.elapsed(); << std::endl;
+	std::cout << "Time to sort in main memory: " << timer1.elapsed() << std::endl;
 	std::cout << "********************************************"<< std::endl;
 	
 	
@@ -261,9 +261,9 @@ int main(int argc, char** argv)
 	var3=var3+timer3.elapsed();
 	
 	std::cout << "********************************************"<< std::endl;
-	std::cout << "Tiempo de ordenamiento vectorial "<< timer2.elapsed(); <<std::endl;
+	std::cout << "Tiempo de ordenamiento vectorial "<< timer2.elapsed() <<std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-	std::cout << "Tiempo de ordenamiento con sort "<< timer3.elapsed(); <<std::endl;
+	std::cout << "Tiempo de ordenamiento con sort "<< timer3.elapsed() <<std::endl;
 	std::cout << "********************************************"<< std::endl;
 
 	return(EXIT_SUCCESS);
