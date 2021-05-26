@@ -233,8 +233,6 @@ int main(int argc, char** argv)
 	//Ordenar 16 datos a través de la Bitonic Merge Network
 	BNM(dataReg);
 	transpose(dataReg);
-	print_m2(dataReg);
-
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
 	/*uint32_t* dest[16];
