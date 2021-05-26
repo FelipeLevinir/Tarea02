@@ -257,63 +257,13 @@ int main(int argc, char** argv)
 	timer3.start();
 	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
 	timer3.stop();
-
-	
-	//Copiar el contenido de los registros vectoriales a memoria principal
-	/*uint32_t* dest[16];
-	dest[0]  = _mm_extract_epi32(dataReg[0], 0);
-	dest[1]  = _mm_extract_epi32(dataReg[0], 1);
-	dest[2]  = _mm_extract_epi32(dataReg[0], 2);
-	dest[3]  = _mm_extract_epi32(dataReg[0], 3);
-	
-	dest[4]  = _mm_extract_epi32(dataReg[1], 0);
-	dest[5]  = _mm_extract_epi32(dataReg[1], 1);
-	dest[6]  = _mm_extract_epi32(dataReg[1], 2);
-	dest[7]  = _mm_extract_epi32(dataReg[1], 3);
-	
-	dest[8]  = _mm_extract_epi32(dataReg[2], 0);
-	dest[9]  = _mm_extract_epi32(dataReg[2], 1);
-	dest[10] = _mm_extract_epi32(dataReg[2], 2);
-	dest[11] = _mm_extract_epi32(dataReg[2], 3);
-	
-	dest[12] = _mm_extract_epi32(dataReg[3], 0);
-	dest[13] = _mm_extract_epi32(dataReg[3], 1);
-	dest[14] = _mm_extract_epi32(dataReg[3], 2);
-	dest[15] = _mm_extract_epi32(dataReg[3], 3);
-	
-	
 	
 	std::cout << "-----------Datos Procesados-------" << std::endl;
 	for(size_t i = 0; i < 16; i++){
 		std::cout << std::setw(8);
-		std::cout << dest[i] << std::endl;
-	}*/
-
-
-	
-	/*
-	std::cout << "-----------Shuffle example--------" << std::endl;
-	std::cout << "Reg_i[0] original" << std::endl;
-	for(size_t i = 0; i < 4; i++){
-		std::cout << std::setw(8);
-		std::cout << dest[i] << std::endl;
+		std::cout << dataReg[i] << std::endl;
 	}
 	
-	dataReg[0] = _mm_shuffle_epi32(dataReg[0], _MM_SHUFFLE(0, 1, 2, 3));
-	
-	dest[0]  = _mm_extract_epi32(dataReg[0], 0);
-	dest[1]  = _mm_extract_epi32(dataReg[0], 1);
-	dest[2]  = _mm_extract_epi32(dataReg[0], 2);
-	dest[3]  = _mm_extract_epi32(dataReg[0], 3);
-	
-	std::cout << "Reg_i[0] with _MM_SHUFFLE(0, 1, 2, 3)" << std::endl;
-	for(size_t i = 0; i < 4; i++){
-		std::cout << std::setw(8);
-		std::cout << dest[i] << std::endl;
-	}
-	*/
-	
-
 	return(EXIT_SUCCESS);
 }
 
