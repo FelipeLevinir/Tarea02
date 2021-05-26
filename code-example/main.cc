@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 	}
 
 	
-	Timing timer0, timer1, timer3;
+	Timing timer0, timer1, timer2;
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
@@ -219,23 +219,42 @@ int main(int argc, char** argv)
 	
 	
 	__m128i  dataReg[4];
-	dataReg[0] = _mm_setr_epi32(m2[0] , m2[1] , m2[2] , m2[3] );
-	dataReg[1] = _mm_setr_epi32(m2[4] , m2[5] , m2[6] , m2[7] );
-	dataReg[2] = _mm_setr_epi32(m2[8] , m2[9] , m2[10], m2[11]);
-	dataReg[3] = _mm_setr_epi32(m2[12], m2[13], m2[14], m2[15]);
-	
-	//Ordenar los 4 datos de cada registro a través del Sorting Network
-	sortNet(dataReg);
-	transpose(dataReg);
-	//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
-	bitonicSorter(&dataReg[0], &dataReg[1]);
-	bitonicSorter(&dataReg[2], &dataReg[3]);
-	//Ordenar 16 datos a través de la Bitonic Merge Network
-	BNM(dataReg);
-	transpose(dataReg);
+	for(size_t i=0; i<m2._nfil; i+=16){
+		dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
+		dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
+		dataReg[2] = _mm_setr_epi32(m2._matrixInMemory[i+8],m2._matrixInMemory[i+9],m2._matrixInMemory[i+10],m2._matrixInMemory[i+11]);
+		dataReg[3] = _mm_setr_epi32(m2._matrixInMemory[i+12],m2._matrixInMemory[i+13],m2._matrixInMemory[i+14],m2._matrixInMemory[i+15]);
+		//Ordenar los 4 datos de cada registro a través del Sorting Network
+		sortNet(dataReg);
+		transpose(dataReg);
+		//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
+		bitonicSorter(&dataReg[0], &dataReg[1]);
+		bitonicSorter(&dataReg[2], &dataReg[3]);
+		//Ordenar 16 datos a través de la Bitonic Merge Network
+		BNM(dataReg);
+		transpose(dataReg);
+		m2._matrixInMemory[i] = _mm_extract_epi32(dataReg[0],0);
+		m2._matrixInMemory[i+1] = _mm_extract_epi32(dataReg[0],1);
+		m2._matrixInMemory[i+2] = _mm_extract_epi32(dataReg[0],2);
+		m2._matrixInMemory[i+3] = _mm_extract_epi32(dataReg[0],3);
+		m2._matrixInMemory[i+4] = _mm_extract_epi32(dataReg[1],0);
+		m2._matrixInMemory[i+5] = _mm_extract_epi32(dataReg[1],1);
+		m2._matrixInMemory[i+6] = _mm_extract_epi32(dataReg[1],2);
+		m2._matrixInMemory[i+7] = _mm_extract_epi32(dataReg[1],3);
+		m2._matrixInMemory[i+8] = _mm_extract_epi32(dataReg[2],0);
+		m2._matrixInMemory[i+9] = _mm_extract_epi32(dataReg[2],1);
+		m2._matrixInMemory[i+10] = _mm_extract_epi32(dataReg[2],2);
+		m2._matrixInMemory[i+11] = _mm_extract_epi32(dataReg[2],3);
+		m2._matrixInMemory[i+12] = _mm_extract_epi32(dataReg[3],0);
+		m2._matrixInMemory[i+13] = _mm_extract_epi32(dataReg[3],1);
+		m2._matrixInMemory[i+14] = _mm_extract_epi32(dataReg[3],2);
+		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
+		break;
+	}
+
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
-	/*uint32_t* dest[16];
+	uint32_t* dest[16];
 	dest[0]  = _mm_extract_epi32(dataReg[0], 0);
 	dest[1]  = _mm_extract_epi32(dataReg[0], 1);
 	dest[2]  = _mm_extract_epi32(dataReg[0], 2);
@@ -262,7 +281,7 @@ int main(int argc, char** argv)
 	for(size_t i = 0; i < 16; i++){
 		std::cout << std::setw(8);
 		std::cout << dest[i] << std::endl;
-	}*/
+	}
 
 
 	
