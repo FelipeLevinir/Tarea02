@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 	}
 
 	
-	Timing timer0, timer1, timer2;
+	Timing timer0, timer1, timer2, timer3;
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
@@ -219,6 +219,7 @@ int main(int argc, char** argv)
 	
 	
 	__m128i  dataReg[4];
+	timer2.start();
 	for(size_t i=0; i<m2._nfil; i+=16){
 		dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
 		dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
@@ -251,6 +252,11 @@ int main(int argc, char** argv)
 		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
 		break;
 	}
+	timer2.stop();
+
+	timer3.start();
+	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
+	timer3.stop();
 
 	
 	//Copiar el contenido de los registros vectoriales a memoria principal
