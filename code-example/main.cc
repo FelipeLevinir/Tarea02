@@ -187,22 +187,23 @@ int main(int argc, char** argv)
 		}
 	}
 
-	double var2, var3;
+	double var0, var1, var2, var3;
 	Timing timer0, timer1, timer2, timer3;
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
 	MatrixToMem m1(fileName);
 	timer0.stop();
+	var0=var0+timer0.elapsed();
 	std::cout << "********************************************"<< std::endl;
-	std::cout << "Time to transfer to main memory: " << timer0.elapsed() << std::endl;
+	std::cout << "Time to transfer to main memory: " << var0 << std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
 	
 	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
-	
-	std::cout << "Time to sort in main memory: " << timer1.elapsed() << std::endl;
+	var1=var1+timer1.elapsed();
+	std::cout << "Time to sort in main memory: " << var1 << std::endl;
 	std::cout << "********************************************"<< std::endl;
 	
 	
