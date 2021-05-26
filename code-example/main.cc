@@ -187,7 +187,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	
+	double var2, var3;
 	Timing timer0, timer1, timer2, timer3;
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
@@ -249,17 +249,20 @@ int main(int argc, char** argv)
 		m2._matrixInMemory[i+13] = _mm_extract_epi32(dataReg[3],1);
 		m2._matrixInMemory[i+14] = _mm_extract_epi32(dataReg[3],2);
 		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
+		break;
 	}
 	timer2.stop();
+	var2=var2+timer2.elapsed();
 ////////////////////////////////////////////////////////////////////////////////
 	timer3.start();
 	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
 	timer3.stop();
+	var3=var3+timer3.elapsed();
 	
 	std::cout << "********************************************"<< std::endl;
-	std::cout << "Tiempo de ordenamiento vectorial "<< timer2.elapsed() <<std::endl;
+	std::cout << "Tiempo de ordenamiento vectorial "<< var2 <<std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-	std::cout << "Tiempo de ordenamiento con sort "<< timer3.elapsed() <<std::endl;
+	std::cout << "Tiempo de ordenamiento con sort "<< var3 <<std::endl;
 	std::cout << "********************************************"<< std::endl;
 
 	return(EXIT_SUCCESS);
