@@ -3,7 +3,6 @@
 #include <RandomUnifStream.hpp>
 #include <Timing.hpp>
 #include <MatrixToMem.hpp>
-
 #include <emmintrin.h>
 #include <smmintrin.h>
 #include <immintrin.h>
@@ -16,7 +15,6 @@
 //                ...................
 //
 /////////////////////////////////////////////////////////////////////////////////
-
 
 //////////////////////////////////////////////////////
 //  Sorting Network
@@ -162,13 +160,13 @@ void BNM(__m128i*  dataReg){
 	bitonicSorter(&dataReg[0],&dataReg[1]);
 	bitonicSorter(&dataReg[2],&dataReg[3]);	
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 void uso(std::string pname)
 {
 	std::cerr << "Uso: " << pname << " --fname MATRIX_FILE" << std::endl;
 	exit(EXIT_FAILURE);
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv)
 {
 
@@ -187,8 +185,8 @@ int main(int argc, char** argv)
 		}
 	}
 
-	double var0, var1, var2, var3;
-	Timing timer0, timer1, timer2, timer3;
+	double var0, var1, var2, var3, var4;
+	Timing timer0, timer1, timer2, timer3, timer4;
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
@@ -198,27 +196,23 @@ int main(int argc, char** argv)
 	std::cout << "********************************************"<< std::endl;
 	std::cout << "Time to transfer to main memory: " << var0 << std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-	
+/////////////////////////////////////////////////////////////////////////////////////////////	
 	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
 	var1=var1+timer1.elapsed();
 	std::cout << "Time to sort in main memory: " << var1 << std::endl;
 	std::cout << "********************************************"<< std::endl;
-	
-	
-	
-	////////////////////////////////////////////////////////////////
-	// Mostrar los N primeros elementos de la matriz desordenada.
-	MatrixToMem m2(fileName);
-	/*std::cout << "-----------Datos a ordenar---------" << std::endl;
-	uint32_t N = 16;
-	for(size_t i=0; i < N; i++){	
-		std::cout << std::setw(8);	
-		std::cout <<"dato " << i << " " << m2[i] << std::endl;	
-	}*/
-	
+/////////////////////////////////////////////////////////////////////////////////////////////
 	timer2.start();
+	MatrixToMem m2(fileName);
+	timer2.stop();
+	var2=var2+timer2.elapsed();
+	std::cout << "********************************************"<< std::endl;
+	std::cout << "Time to transfer to main memory: " << var2 << std::endl;
+	std::cout << "--------------------------------------------"<< std::endl;
+/////////////////////////////////////////////////////////////////////////////////////////////	
+	timer3.start();
 	__m128i  dataReg[4];
 	for(size_t i=0; i<m2._nfil; i+=16){
 		dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
@@ -252,18 +246,18 @@ int main(int argc, char** argv)
 		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
 		break;
 	}
-	timer2.stop();
-	var2=var2+timer2.elapsed();
-////////////////////////////////////////////////////////////////////////////////
-	timer3.start();
-	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
 	timer3.stop();
 	var3=var3+timer3.elapsed();
+////////////////////////////////////////////////////////////////////////////////
+	timer4.start();
+	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
+	timer4.stop();
+	var4=var4+timer4.elapsed();
 	
 	std::cout << "********************************************"<< std::endl;
-	std::cout << "Tiempo de ordenamiento vectorial "<< var2 <<std::endl;
+	std::cout << "Tiempo de ordenamiento vectorial "<< var3 <<std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-	std::cout << "Tiempo de ordenamiento con sort "<< var3 <<std::endl;
+	std::cout << "Tiempo de ordenamiento con sort "<< var4 <<std::endl;
 	std::cout << "********************************************"<< std::endl;
 
 	return(EXIT_SUCCESS);
