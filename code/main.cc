@@ -241,7 +241,6 @@ int main(int argc, char** argv)
 		m2._matrixInMemory[i+13] = _mm_extract_epi32(dataReg[3],1);
 		m2._matrixInMemory[i+14] = _mm_extract_epi32(dataReg[3],2);
 		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
-		break;
 	}
 	timer3.stop();
 ////////////////////////////////////////////////////////////////////////////////
