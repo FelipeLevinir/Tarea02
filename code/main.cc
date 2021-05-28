@@ -169,7 +169,8 @@ void uso(std::string pname)
 /////////////////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv)
 {
-
+	Timing timer0, timer1, timer2, timer3, timer4, timer5;
+	timer5.start();
 	std::string fileName;
 	
 	//////////////////////////////////////////
@@ -183,10 +184,7 @@ int main(int argc, char** argv)
 		if (mystr == "--fname") {
 			fileName = argv[i+1];
 		}
-	}
-
-	double var0, var1, var2, var3, var4;
-	Timing timer0, timer1, timer2, timer3, timer4;
+	}	
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
@@ -267,11 +265,12 @@ int main(int argc, char** argv)
 	timer4.start();
 	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
 	timer4.stop();
-
+	timer5.stop();
 	std::cout << "Tiempo de ordenamiento vectorial "<< timer3.elapsed() <<std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
 	std::cout << "Tiempo de ordenamiento con sort "<< timer4.elapsed() <<std::endl;
 	std::cout << "********************************************"<< std::endl;
-
+	std::cout << "SpeedUp alcanzado:  "<< timer5.elapsed() <<std::endl;
 	return(EXIT_SUCCESS);
+	
 }
