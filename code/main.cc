@@ -16,7 +16,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////
+//------------------------------- Primera sección ---------------------------------//
 //  Sorting Network
 //      **********************************************************
 //      ***Importante: el paso de parámetros es por referencia.***
@@ -54,8 +54,8 @@ void sortNet(__m128i* dataRegisters) {
 	dataRegisters[2] = r_max5;
 	dataRegisters[3] = r_max3;
 }
-
-//////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Primera sección -------------------------------//
+//------------------------------- Segunda sección ----------------------------------//
 // transpose a matrix vector
 //      **********************************************************
 //      ***Importante: el paso de parámetros es por referencia.***
@@ -80,8 +80,8 @@ void transpose(__m128i*  dataReg){
 	dataReg[3] = _mm_unpackhi_epi64(S[2], S[3]);
 	
 }
-
-//////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Segunda sección -------------------------------//
+//------------------------------- Tercera sección ----------------------------------//
 //  Bitonic sorter
 //      **********************************************************
 //      ***Importante: el paso de parámetros es por referencia.***
@@ -101,9 +101,7 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 	auto aux=_mm_min_epi32(*dataReg1,*dataReg2);
 	*dataReg2=_mm_max_epi32(*dataReg1,*dataReg2);
 	*dataReg1=aux;
-	//Reordenar dataReg2 para que la entrada sea una secuencia bitónica
-	//dataReg2 = _mm_shuffle_epi32(*dataReg2, _MM_SHUFFLE(0, 1, 2, 3));
-	//std::cout << "pasa 1" << std::endl;
+/////////////////////////////////////////////////////////////////////////
 	uint32_t m1=_mm_extract_epi32(*dataReg1,0);
     uint32_t m2=_mm_extract_epi32(*dataReg1,1);
     uint32_t m3=_mm_extract_epi32(*dataReg1,2);
@@ -124,7 +122,7 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
     m2=_mm_extract_epi32(*dataReg1,1);
     m3=_mm_extract_epi32(*dataReg1,2);
     m4=_mm_extract_epi32(*dataReg1,3);
-
+/////////////////////////////////////////////////////////////////////////
     M1=_mm_extract_epi32(*dataReg2,0);
     M2=_mm_extract_epi32(*dataReg2,1);
     M3=_mm_extract_epi32(*dataReg2,2);
@@ -138,7 +136,8 @@ void bitonicSorter(__m128i*  dataReg1, __m128i*  dataReg2)
 	//std::cout << "pasa 3" << std::endl;
 	//Código asociados a cada nivel del Bitonic Sorter
 }
-//////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Tercera sección -------------------------------//
+//------------------------------- Cuarta sección -----------------------------------//
 //  Bitonic Merge Network
 //      **********************************************************
 //      ***Importante: el paso de parámetros es por referencia.***
@@ -160,19 +159,21 @@ void BNM(__m128i*  dataReg){
 	bitonicSorter(&dataReg[0],&dataReg[1]);
 	bitonicSorter(&dataReg[2],&dataReg[3]);	
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Cuarta sección -------------------------------//
+//------------------------------- Quinta sección ----------------------------------//
 void uso(std::string pname)
 {
 	std::cerr << "Uso: " << pname << " --fname MATRIX_FILE" << std::endl;
 	exit(EXIT_FAILURE);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Quinta sección -----------------------------//
+//------------------------------- Main del código  ------------------------------//
 int main(int argc, char** argv)
 {
+//------------------------------- Sexta sección --------------------------------//
 	Timing timer0, timer1, timer2, timer3, timer4, timer5;
 	timer5.start();
 	std::string fileName;
-	
 	//////////////////////////////////////////
 	//  Read command-line parameters easy way
 	if(argc != 3){
@@ -184,7 +185,9 @@ int main(int argc, char** argv)
 		if (mystr == "--fname") {
 			fileName = argv[i+1];
 		}
-	}	
+	}
+//------------------------------- Fin Sexta sección -------------------------------//	
+//------------------------------- Septima sección --------------------------------//	
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	timer0.start();
@@ -206,7 +209,9 @@ int main(int argc, char** argv)
 	std::cout << "********************************************"<< std::endl;
 	std::cout << "Time to transfer to main memory: " << timer2.elapsed() << std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-/////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------- Fin Septima sección -------------------------------//	
+//------------------------------- Octava sección -----------------------------------//		
 	timer3.start();
 	__m128i  dataReg[4];
 	for(size_t i=0; i<m2._nfil; i+=16){
@@ -265,12 +270,16 @@ int main(int argc, char** argv)
 	timer4.start();
 	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
 	timer4.stop();
+//------------------------------- Fin Octava sección ---------------------------------//
+//------------------------------- Novena sección -------------------------------------//
 	timer5.stop();
 	std::cout << "Tiempo de ordenamiento vectorial "<< timer3.elapsed() <<std::endl;
 	std::cout << "--------------------------------------------"<< std::endl;
-	std::cout << "Tiempo de ordenamiento con sort "<< timer4.elapsed() <<std::endl;
+	std::cout << "Time to sort in main memory: "<< timer4.elapsed() <<std::endl;
 	std::cout << "********************************************"<< std::endl;
 	std::cout << "SpeedUp alcanzado:  "<< timer5.elapsed() <<std::endl;
+//------------------------------- Fin Novena sección ---------------------------------//
 	return(EXIT_SUCCESS);
-	
+//------------------------------- Fin Main del código  -------------------------------//
 }
+//------------------------------- Fin del código  ------------------------------------//
