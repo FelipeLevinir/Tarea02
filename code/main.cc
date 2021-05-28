@@ -212,6 +212,26 @@ int main(int argc, char** argv)
 	timer3.start();
 	__m128i  dataReg[4];
 	for(size_t i=0; i<m2._nfil; i+=16){
+		if(m2._nfil==1000 && i==992){
+			dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
+			dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
+			dataReg[2] = _mm_setr_epi32(m2._matrixInMemory[i+8],m2._matrixInMemory[i+9],m2._matrixInMemory[i+10],m2._matrixInMemory[i+11]);
+			dataReg[3] = _mm_setr_epi32(m2._matrixInMemory[i+12],m2._matrixInMemory[i+13],m2._matrixInMemory[i+14],m2._matrixInMemory[i+15]);
+			//Ordenar los 4 datos de cada registro a través del Sorting Network
+			sortNet(dataReg);
+			transpose(dataReg);
+			//Ordenar 8 datos en total de dos registros a través del Bitonic Sorter
+			bitonicSorter(&dataReg[0], &dataReg[1]);
+			m2._matrixInMemory[i] = _mm_extract_epi32(dataReg[0],0);
+			m2._matrixInMemory[i+1] = _mm_extract_epi32(dataReg[0],1);
+			m2._matrixInMemory[i+2] = _mm_extract_epi32(dataReg[0],2);
+			m2._matrixInMemory[i+3] = _mm_extract_epi32(dataReg[0],3);
+			m2._matrixInMemory[i+4] = _mm_extract_epi32(dataReg[1],0);
+			m2._matrixInMemory[i+5] = _mm_extract_epi32(dataReg[1],1);
+			m2._matrixInMemory[i+6] = _mm_extract_epi32(dataReg[1],2);
+			m2._matrixInMemory[i+7] = _mm_extract_epi32(dataReg[1],3);
+			break;
+		}
 		dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
 		dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
 		dataReg[2] = _mm_setr_epi32(m2._matrixInMemory[i+8],m2._matrixInMemory[i+9],m2._matrixInMemory[i+10],m2._matrixInMemory[i+11]);
