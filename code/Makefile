@@ -1,44 +1,23 @@
-TARGET=./tarea02
+SRCDIR=src
+default: all
 
-DEBUG=-DDEBUG
-DEBUG=
+all:
+        @for i in $(SRCDIR); do \
+        echo "make all in $$i..."; \
+        (cd $$i && $(MAKE)); done
 
-CXX = g++
-
-#
-DIR_OBJ=objs
-SOURCES=$(wildcard *.cc)
-OBJECTS=$(patsubst %.cc,$(DIR_OBJ)/%.o,$(SOURCES))
-
-INTRINSICS=-msse2 -mavx
-
-INCLUDES =-I. -I./include
-CPPFLAGS =-std=c++17  -Wno-deprecated $(INTRINSICS) 
-LDFLAGS =-L/usr/local/lib 
-LDLIBS = -lm -lpthread 
-
-all: 
-	(cd $(SRCDIR) && $(MAKE))
-	mv src/./tarea02 ./tarea02
-	
-$(TARGET): $(OBJECTS) 
-	@echo Linking [$@]
-	@eval $(CXX) $(LDFLAGS) $^ $(LDLIBS)  -o $@ 
-	
-$(DIR_OBJ)/%.o: %.cc
-	@echo Compiling [$@]
-	@mkdir -p $(DIR_OBJ)
-	@eval $(CXX) -c $(INCLUDES) $(CPPFLAGS)  $< -o $@
-	
 clean:
-	@$(RM) core *~ \#*\# *.bak *.BAK *\%
-	@$(RM) -f .dummy $(OBJECTS)
+        @for i in $(SRCDIR); do \
+        echo "make clean in $$i..."; \
+        (cd $$i && $(MAKE) clean); done
 
 distclean:
-	@$(RM) $(TARGET)
-	@$(RM) -rf $(DIR_OBJ)
+        @for i in $(SRCDIR); do \
+        echo "make clean && make distclean in $$i..."; \
+        (cd $$i && $(MAKE) clean && $(MAKE) distclean); done
 
 
+.PHONY: all clean distclean
 
 
 
