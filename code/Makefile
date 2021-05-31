@@ -2,23 +2,16 @@ SRCDIR=src
 default: all
 
 all:
-	@for i in $(SRCDIR); do \
-	echo "make all in $$i..."; \
-	(cd $$i && $(MAKE)); done
+	(cd $(SRCDIR) && $(MAKE))
+	mv src/./tarea02 ./tarea02
 
 clean:
-	@for i in $(SRCDIR); do \
-	echo "make clean in $$i..."; \
-	(cd $$i && $(MAKE) clean); done
+	(cd $(SRCDIR) && $(MAKE) clean)
+	mv src/./tarea02 ./tarea02
 
 distclean:
-	@for i in $(SRCDIR); do \
-	echo "make clean && make distclean in $$i..."; \
-	(cd $$i && $(MAKE) clean && $(MAKE) distclean); done
+	(cd $(SRCDIR) && $(MAKE) clean && $(MAKE) distclean)
+	mv src/./tarea02 ./tarea02
 
 
 .PHONY: all clean distclean
-
-
-
-

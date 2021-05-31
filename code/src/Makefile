@@ -17,9 +17,8 @@ CPPFLAGS =-std=c++17  -Wno-deprecated $(INTRINSICS)
 LDFLAGS =-L/usr/local/lib 
 LDLIBS = -lm -lpthread 
 
-all: 
-	(cd $(SRCDIR) && $(MAKE))
-	mv src/./tarea02 ./tarea02
+all: $(TARGET)
+	@echo Made [ $? ] OK :\)
 	
 $(TARGET): $(OBJECTS) 
 	@echo Linking [$@]
