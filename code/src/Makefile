@@ -1,4 +1,4 @@
-TARGET=./matrix
+TARGET=./tarea02
 
 DEBUG=-DDEBUG
 DEBUG=
@@ -17,8 +17,9 @@ CPPFLAGS =-std=c++17  -Wno-deprecated $(INTRINSICS)
 LDFLAGS =-L/usr/local/lib 
 LDLIBS = -lm -lpthread 
 
-all: $(TARGET)
-	@echo Made [ $? ] OK :\)
+all: 
+	(cd $(SRCDIR) && $(MAKE))
+	mv src/./tarea02 ./tarea02
 	
 $(TARGET): $(OBJECTS) 
 	@echo Linking [$@]

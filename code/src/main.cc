@@ -215,6 +215,7 @@ int main(int argc, char** argv)
 	timer3.start();
 	__m128i  dataReg[4];
 	for(size_t i=0; i<m2._nfil; i+=16){
+		//Condición para hacer cuadrar los mil elementos.
 		if(m2._nfil==1000 && i==992){
 			dataReg[0] = _mm_setr_epi32(m2._matrixInMemory[i],m2._matrixInMemory[i+1],m2._matrixInMemory[i+2],m2._matrixInMemory[i+3]);
 			dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
